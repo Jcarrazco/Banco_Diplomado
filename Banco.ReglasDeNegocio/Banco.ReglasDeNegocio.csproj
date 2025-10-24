@@ -12,12 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AutorizacionJwtServicio\AutorizacionJwtServicio.csproj" />
     <ProjectReference Include="..\Banco.Core\Banco.Core.csproj" />
     <ProjectReference Include="..\Banco.Repositorio.Dapper\Banco.Repositorio.Dapper.csproj" />
     <ProjectReference Include="..\Banco.Repositorio.Sql\Banco.Repositorio.Sql.csproj" />
     <ProjectReference Include="..\Banco.Repsositorio.MongoDb\Banco.Repsositorio.MongoDb.csproj" />
     <ProjectReference Include="..\Banco.Servicios\Banco.Servicios.csproj" />
-    <ProjectReference Include="..\JwtTokenServicio\JwtTokenServicio.csproj" />
   </ItemGroup>
 
 </Project>

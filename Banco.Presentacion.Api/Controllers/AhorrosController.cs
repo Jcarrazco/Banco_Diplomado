@@ -45,5 +45,16 @@ namespace Banco.Presentacion.Api.Controllers
 
             return Created(string.Empty, idDto);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ObtenerAhorroAsync()
+        {
+            string id;
+            id = User.Claims.FirstOrDefault(c => c.Type == "ClienteId")?.Value;
+
+            AhorroDto ahorroDto = await _unitOfWork.Ahorro.ObtenerAhorroPorClienteIdAsync(id);
+
+            return Ok(ahorroDto);
+        }
     }
 }

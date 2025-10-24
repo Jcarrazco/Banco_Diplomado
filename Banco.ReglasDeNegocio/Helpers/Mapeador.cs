@@ -43,7 +43,7 @@ namespace Banco.ReglasDeNegocio.Helpers
             Total = entidad.Total,
         };
 
-        public static SolicitudDeCurpDtoIn ToSolicitudDeCurp(this ClienteDtoIn dtoIn) => new SolicitudDeCurpDtoIn
+        public static SolicitudDto ToSolicitudDeCurp(this ClienteDtoIn dtoIn) => new SolicitudDto
         {
             FechaDeNacimiento = dtoIn.FechaDeNacimiento,
             Estado = string.Empty,// ObtenerEstado(dtoIn.EstadoDeNacimiento),

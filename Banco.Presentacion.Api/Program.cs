@@ -1,9 +1,19 @@
+using AutorizacionJwtServicio;
 using Banco.ReglasDeNegocio.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AgregarReglasDeNegocio(builder.Configuration);
+builder.Services.AddJwtAuthentication(builder.Configuration);
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Cliente", policy =>
+    {
+        policy.RequireClaim("Role", "Cliente");
+    });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

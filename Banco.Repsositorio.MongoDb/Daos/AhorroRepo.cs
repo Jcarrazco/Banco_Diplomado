@@ -37,5 +37,15 @@ namespace Banco.Repsositorio.MongoDb.Daos
             else
                 return await _collection.Find(x => x.Encodedkey == idEncodedKey).FirstOrDefaultAsync();
         }
+
+        public async Task<AhorroEntidad> ObtenerAhorroAsync(string clienteId)
+        {
+            if (int.TryParse(clienteId, out int id))
+                return await _collection.Find(x => x.ClienteId == id).FirstOrDefaultAsync();
+            else
+                return await _collection.Find(x => x.ClienteEncodedkey == clienteId).FirstOrDefaultAsync();
+        }
+
+
     }
 }

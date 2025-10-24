@@ -41,6 +41,15 @@ namespace Banco.ReglasDeNegocio.Reglas
             throw new NotImplementedException();
         }
 
+        public async Task<AhorroDto> ObtenerAhorroPorClienteIdAsync(string id)
+        {
+            AhorroEntidad entidad;
+
+            entidad = await _repositorio.Ahorro.ObtenerAhorroAsync(id);
+
+            return entidad.ToDto();
+        }
+
         public async Task<AhorroDto> ObtenerAsync(string encodedkey)
         {
             AhorroEntidad entidad;

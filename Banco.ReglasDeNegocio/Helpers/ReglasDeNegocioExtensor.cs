@@ -5,7 +5,7 @@ using Banco.Repsositorio.MongoDb.Helpers;
 using Banco.Servicios.Renapo;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using JwtTokenService.Helpers;
+
 
 namespace Banco.ReglasDeNegocio.Helpers
 {
@@ -15,11 +15,11 @@ namespace Banco.ReglasDeNegocio.Helpers
         {
             //services.AgregarRepositorioSql(configuration);
             //services.AgregarRepositorioDapper();            
-            services.AddJwtAuthentication(configuration);
+            //services.AddJwtAuthentication(configuration);
 
             services.AgregarRepositorioMongo();
 
-            services.AddScoped<IUnitOfWork, UnidadDeTrabajo>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IClienteReglasDeNEgocio, ClienteReglasDeNegocio>();
             services.AddScoped<IAhorroReglasDeNegocio, AhorroReglaDeNegocio>();
             services.AddScoped<IEstadoReglasDeNegocio,  EstadoReglasDeNegocio>();

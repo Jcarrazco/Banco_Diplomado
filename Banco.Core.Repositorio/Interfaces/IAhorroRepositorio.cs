@@ -9,5 +9,6 @@ namespace Banco.Core.Repositorio.Interfaces
         Task<AhorroEntidad> ObtenerAsync(string idEncodedKey);
 
         Task Actualizar(AhorroEntidad entidad);
+        Task<AhorroEntidad> ObtenerAhorroAsync(string clienteId);
     }
 }

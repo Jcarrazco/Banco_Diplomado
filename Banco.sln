@@ -24,7 +24,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banco.Repositorio.Dapper", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banco.Repsositorio.MongoDb", "Banco.Repsositorio.MongoDb\Banco.Repsositorio.MongoDb.csproj", "{44A21F7B-6D48-497C-9A25-39CC559F61BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JwtTokenServicio", "JwtTokenServicio\JwtTokenServicio.csproj", "{00C2B465-51A9-E9C1-4725-1EC90A571A95}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutorizacionJwtServicio", "AutorizacionJwtServicio\AutorizacionJwtServicio.csproj", "{4BE6C5F8-47E7-4B78-013E-53A51AD362A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,10 +64,10 @@ Global
 		{44A21F7B-6D48-497C-9A25-39CC559F61BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44A21F7B-6D48-497C-9A25-39CC559F61BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44A21F7B-6D48-497C-9A25-39CC559F61BE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{00C2B465-51A9-E9C1-4725-1EC90A571A95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00C2B465-51A9-E9C1-4725-1EC90A571A95}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00C2B465-51A9-E9C1-4725-1EC90A571A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00C2B465-51A9-E9C1-4725-1EC90A571A95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BE6C5F8-47E7-4B78-013E-53A51AD362A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BE6C5F8-47E7-4B78-013E-53A51AD362A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BE6C5F8-47E7-4B78-013E-53A51AD362A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BE6C5F8-47E7-4B78-013E-53A51AD362A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

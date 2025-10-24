@@ -4,6 +4,6 @@ namespace Banco.Core.IServices
 {
     public interface ICurpService
     {
-        Task<string> GenerarCurp(SolicitudDeCurpDtoIn solicitudDeCurpDto);
+        Task<string> GenerarCurp(SolicitudDto solicitudDeCurpDto);
     }
 }

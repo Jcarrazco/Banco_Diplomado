@@ -1,6 +1,6 @@
 ﻿namespace Banco.Core.Dtos
 {
-    public class SolicitudDeCurpDtoIn
+    public class SolicitudDto
     {
         public string Nombres { get; set; }
 

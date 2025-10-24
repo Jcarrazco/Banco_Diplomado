@@ -15,6 +15,11 @@ namespace Banco.Repositorio.Dapper.Daos
             throw new NotImplementedException();
         }
 
+        public Task<AhorroEntidad> ObtenerAhorroAsync(string clienteId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<AhorroEntidad> ObtenerAsync(string idEncodedKey)
         {
             throw new NotImplementedException();

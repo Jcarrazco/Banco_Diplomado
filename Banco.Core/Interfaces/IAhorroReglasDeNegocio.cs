@@ -7,6 +7,7 @@ namespace Banco.Core.Interfaces
         Task<IdDto> AgregarAsync(AhorroDtoIn ahorro);
 
         Task<IdDto> DepositarAsync(MovimientoDtoIn deposito);
+        Task<AhorroDto> ObtenerAhorroPorClienteIdAsync(string id);
         Task<AhorroDto> ObtenerAsync(string encodedkey);
         Task<IdDto> RetirarAsync(MovimientoDtoIn retiro);
     }

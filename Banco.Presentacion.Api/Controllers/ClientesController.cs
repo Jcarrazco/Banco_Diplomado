@@ -14,7 +14,21 @@ namespace Banco.Presentacion.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> AgregarAsync(ClienteDtoIn cliente)
         {
-           
+            ClienteDto clienteDto = await _unitOfWork.Cliente.ObtenerAsync(cliente);
+            IdDto idDto;
+            if (clienteDto is not null)
+            {
+                idDto = new IdDto
+                {
+                    Id = clienteDto.Id,
+                    Encodedkey = clienteDto.EncodedKey,
+                    Mensaje = "Registro previo"
+                };
+
+                return StatusCode(208, idDto);
+            }
+
+            idDto = await _unitOfWork.Cliente.AgregarAsync(cliente);
 
             return Created();
         }
@@ -30,7 +44,14 @@ namespace Banco.Presentacion.Api.Controllers
         [Produces("application/json")]
         public async Task<IActionResult> IniciarSesionAsync(InicioDeSesionDto inicioDeSesion)
         {
-            return Ok();
+            TokenDto tokenDto = await _unitOfWork.Cliente.IniciarSesionAsync(inicioDeSesion);
+
+            if (tokenDto == null)
+            {
+                return StatusCode(400, new IdDto { Mensaje = "Credenciales no validas"}); 
+            }
+
+            return Ok(tokenDto);
         }
     }
 }

@@ -1,18 +1,36 @@
-﻿using Banco.Core.Dtos;
+﻿using AutorizacionJwtServicio;
+using Banco.Core.Dtos;
 using Banco.Core.Interfaces;
+using Banco.Core.IServices;
 using Banco.Core.Repositorio.Entidades;
 using Banco.Core.Repositorio.Interfaces;
 using Banco.ReglasDeNegocio.Helpers;
+using Banco.Servicios.Renapo;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Banco.ReglasDeNegocio.Reglas
 {
-    internal class ClienteReglasDeNegocio(IRepositorio repositorio) : IClienteReglasDeNEgocio
+    internal class ClienteReglasDeNegocio(IRepositorio repositorio, 
+                                          ICurpService curpService,
+                                          IEstadoReglasDeNegocio estadoReglas,
+                                          TokenServicio jwtToken
+                                      ) : IClienteReglasDeNEgocio
     {
-        private readonly IRepositorio _repositorio = repositorio;   
+        private readonly IRepositorio _repositorio = repositorio;
+        private readonly ICurpService _curpService = curpService;
+        private readonly IEstadoReglasDeNegocio _estadoRegla = estadoReglas;
+        private readonly TokenServicio _jwtToken = jwtToken;
 
         public async Task<IdDto> AgregarAsync(ClienteDtoIn cliente)
-        {            
-            return new IdDto();
+        {
+            ClienteEntidad entidad;
+            entidad = cliente.ToEntidad();
+            entidad.Curp = await ObtenerCurpAsync(cliente);
+            entidad.Id = await _repositorio.Cliente.AgregarAsync(entidad);
+
+            await agregarAhorro(entidad);
+
+            return new IdDto { Encodedkey = cliente.EncodedKey, Id = entidad.Id };
         }
 
         private async Task agregarAhorro(ClienteEntidad entidad)
@@ -31,10 +49,18 @@ namespace Banco.ReglasDeNegocio.Reglas
 
         private async Task<string> ObtenerCurpAsync(ClienteDtoIn cliente)
         {
-            SolicitudDeCurpDtoIn solicitudDeCurpDtoIn;
+            SolicitudDto solicitudDeCurpDtoIn;
+            
             string curp;
-
-            curp = string.Empty;
+            curp = await _curpService.GenerarCurp(new SolicitudDto
+            {
+                Nombres = cliente.Nombre,
+                primerApellido = cliente.PrimerApellido,
+                segundoApellido = cliente.SegundoApellido,
+                FechaDeNacimiento = cliente.FechaDeNacimiento,
+                Sexo = cliente.Sexo,
+                Estado = _estadoRegla.ObtenerPorId(cliente.EstadoDeNacimiento)
+            });
 
             return curp;
         }        
@@ -43,7 +69,26 @@ namespace Banco.ReglasDeNegocio.Reglas
         {
             DateTime fechaDeExpiracion = DateTime.Now.AddMinutes(20);
 
-            return null;
+            var cliente = await _repositorio.Cliente.ObtenerPorCorreoAsync(inicioDeSesion.Usuario);
+            
+            if (cliente == null)
+                return null;
+
+            //por ahora se compara en texto plano, pero debe ser con hash
+            if(inicioDeSesion.Contraseña != cliente.Contrasenia)
+                return null;
+
+            var tokenString = _jwtToken.ObtenerToken(cliente.Nombre, "Cliente", cliente.Id.ToString(), cliente.Correo, fechaDeExpiracion);
+
+            TokenDto tokenDto = new TokenDto
+            {
+                Token = tokenString,
+                Fecha = DateTime.Now,
+                FechaDeExpiracion = fechaDeExpiracion,
+                ExpiracionEnMinutos = 20
+            };
+
+            return tokenDto;
         }
 
         public async Task<ClienteDto> ObtenerAsync(ClienteDtoIn cliente)
